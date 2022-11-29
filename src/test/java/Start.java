@@ -17,7 +17,7 @@ public class Start {
     @BeforeMethod//анотация
     public void precondition() {
         wd = new ChromeDriver();
-        wd.get("file:///C:/Users/fight/Downloads/index.html");
+        wd.get("file:///D:/Learning/Video/QA%20Automation/Vebinar/Vevinar_3/index.html");
 
     }
 
@@ -68,13 +68,41 @@ public class Start {
 
     }
     @Test
-    public void isItem2Select(){
-        //step 1 find item2 + click
-        //Assert (text from alert, text item2)
+    public void tableTests(){
+        List<WebElement> rows = wd.findElements(By.cssSelector("tr"));
+        System.out.println("Count of Rows -->" + rows.size());
+        List<WebElement> colums = wd.findElements(By.cssSelector("th"));
+        System.out.println("Count of Colums -->" + colums.size());
+        //print contetnt of row3
+        List<WebElement> row3 = wd.findElements(By.cssSelector("tr:nth-child(3) td"));
+        for (WebElement el:row3) {
+            System.out.println(el.getText());
 
-        //click by item2 != item2
-        Assert.assertTrue(text1.contacns(text2));
+            System.out.println("**********************");
+            WebElement r3 = wd.findElement(By.cssSelector("tr:nth-child(3)"));
+            System.out.println(r3.getText());
+
+            System.out.println("**********************");
+            System.out.println(wd.findElement(By.cssSelector("table")).getText());
+            //print content of last col
+            List<WebElement> lastColums = wd.findElements(By.cssSelector("td:last-child"));
+            for (WebElement el1:lastColums) {
+                System.out.println(el1.getText());
+
+            }
+            //Assert with name "Canada"
+            WebElement canada = wd.findElement(By.cssSelector("tr:nth-child(3) td:last-child"));
+            String text = canada.getText();
+            Assert.assertEquals(text,"Canada");
+        }
     }
+//    public void isItem2Select(){
+//        //step 1 find item2 + click
+//        //Assert (text from alert, text item2)
+//
+//        //click by item2 != item2
+//        Assert.assertTrue(text1.contacns(text2));
+//    }
 
     @AfterMethod
     public void postCondition() {
